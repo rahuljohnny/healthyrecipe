@@ -1,3 +1,7 @@
+
+
+
+
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -6,67 +10,57 @@ $.ajaxSetup({
 
 function getSearchKey(searchKey) {
     $('.resultContainer').html('');
+    $('.classHeader').html('');
     var searchedItem;
     var recipe;
+    var searchButton = document.getElementById("searchButton");
+
+
+
+
     $.ajax({
         type: 'GET',
+
         async: false,
         url: 'https://api.edamam.com/search?' +
-        'q='+searchKey+'&app_id=3e043da3&app_key=\n' +
-        '91bbacb3992f0099181b6a1385ebab3f\t\n&from=0&to=20&calories=gte%20591,%20lte%20722&health=alcohol-free',
-        /*
-
-        url: 'https://api.edamam.com/api/food-database/parser?ingr='+searchKey+'&app_id=3e043da3&app_key=\n' +
-        '91bbacb3992f0099181b6a1385ebab3f\t\n&page=0',
-
-          */
-
+        'q='+searchKey+'&app_id=3e86fe81&app_key=\n' +
+        '4be5bb16bc66e8a68250e4fa63e17458&from=0&to=7&calories=gte%20591,%20lte%20722&health=alcohol-free',
 
 
         success: function (d) {
-            //console.log(d);
-
             searchedItem = d.hits;
+        },
+
+        complete: function () {
+            searchButton.innerHTML = "Search Again..."
         }
     });
 
-
     searchedItem.map(function (item) {
         recipe = item.recipe;
-        console.log(recipe);
-
         var recipeNew = recipe.label;
-        //console.log(recipeNew);
+        var uniqueness = recipe.uri;
 
-        /*
-        $('.resultContainer').append(
-            '<div col-md-8>'+
-            '<a href="'+recipe.label+'"'+
-            '<div class="itemBar">'+
-            '<h3>'+recipe.label+'</h3>'+
-            '<h6>Calories: '+recipe.calories+'</h6>'
-            +'</div>'+'</a'+'<br>'
-        );
-        */
+        var indexOfHash = uniqueness.indexOf("_");
+
+        //var urlForEach = recipe.uri;
 
 
-        var urlForEach = recipe.label;
-        var urlForEachTemp;
-        //var urlForEach = recipe.label;
+        var urlForEachTemp = uniqueness.substring(indexOfHash+1, uniqueness.length);
+        //var urlForEachTemp = urlForEach;
 
-        //urlForEachTemp = urlForEach.replace(' ','_');
-        urlForEachTemp = urlForEach.replace(/ /g, '_');
 
         console.log(urlForEachTemp);
 
+        //#####################################################################################
 
-        //return s.indexOf(' ') >= 0;
+        //#####################################################################################
 
         $('.resultContainer').append(
 
 
-        '<div class="list-group col-md-10">'+
-            '<h3>'+"Search Results-"+'</h3>'+
+        '<div class="list-group col-md-8 col-md-offset-2">'+
+
 
 
         '<a href="recipe/'+urlForEachTemp+'" class="list-group-item active">'+
@@ -101,12 +95,20 @@ function getSearchKey(searchKey) {
     });
 }
 
+
+
 function searchValue() {
     var formValue = document.getElementById('searchBar').value;
     //console.log(formValue);
+    $('.classHeader').append("Search Results");
     getSearchKey(formValue);
 }
 
 $('#searchForm').submit(function (e) { //TODO: To prevent a "form submission refresh" its used
     e.preventDefault();
+
 })
+
+
+
+

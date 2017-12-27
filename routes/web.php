@@ -50,7 +50,11 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/logout','UserController@getLogout')->name('logout');
 
 
-    Route::get('/addtofav/{itemName}','FavrecipesController@addtofav')->name('addtofav');
+    //Route::get('/addtofav/{itemName}','FavrecipesController@addtofav')->name('addtofav');
+    Route::post('/addtofav','FavrecipesController@addtofav')->name('addtofav');
     Route::get('/delete/{id}','FavrecipesController@destroy')->name('dish.destroy');
 
 });
+
+
+Route::get('/store','FavrecipesController@store');

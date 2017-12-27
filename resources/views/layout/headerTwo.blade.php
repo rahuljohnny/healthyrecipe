@@ -17,7 +17,7 @@
 
 
             <li>
-                <a href="/user/profile">
+                <a href="/userprofile">
                     <strong>Favourites</strong>
                     <i class="fa fa-rss fa-lg" aria-hidden="true"></i>
                 </a>
@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li>
-                <a href="/user/profile">
+                <a href="/userprofile">
                     <i class="fa fa-user-circle fa-2x" aria-hidden="true">
                     </i>
                     @if(Auth::user())

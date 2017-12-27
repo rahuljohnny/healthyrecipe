@@ -1,55 +1,47 @@
 @extends('layout.main')
-@section('title','shirts')
+@section('title','favourites')
 @section('content')
 
 
-<div class="col-md-offset-3 col-md-6">
-    <h3 class="text-success">{{$userName}}'s Profile:</h3><br>
+<div class="col-md-offset-2 col-md-8">
 
     @include('partials.errors')
 
 
     <table class="table col-md-12">
+        <h3 class="text-success">{{$userName}}'s Profile:</h3><br>
+
 
         <tr>
-            <th class="col-md-4 col-md-offset-2">
+            <th class="col-md-3">ID</th>
+            <th class="col-md-3">
                 Item Name
             </th>
+            <th class="col-md-2">Added at</th>
 
-            <th class="col-md-4">Added at</th>
-            <th class=" col-md-4">Action</th>
+            <th class=" col-md-1">Image</th>
+            <th class="col-md-1 col-md-offset-3">Action</th>
         </tr>
 
         @foreach($favDishes as $dish)
 
-            <div class="panel panel-default">
-                <!-- Default panel contents -->
+                <tr class="panel panel-default">
+                    <td>{{$dish->uniqueUrl}}</td>
 
-                <!-- Table -->
-                @php
-                    $dishDirectory = $dish->recipeLabel;
+                    <td>
+                        <a href="/recipe/{{$dish->uniqueUrl}}">
+                            {{$dish->recipeLabel}}
+                        </a>
+                    </td>
+                    <td>{{$dish->created_at}}</td>
 
-                    for($i = 0; $i < strlen($dishDirectory); $i++){
-                        if($dishDirectory[$i]==' ')
-                            $dishDirectory[$i] = '_';
-                   }
-                @endphp
+                    <td>
+                        <img src="{{$dish->imageUrl}}" alt="image"/>
+                    </td>
 
-
-
-                    <tr>
-
-                        <td>
-                            <a href="/recipe/{{$dishDirectory}}">
-                                {{$dish->recipeLabel}}
-                            </a>
-                        </td>
-                        <td>{{$dish->created_at}}</td>
-                        <td><a href="/delete/{{$dish->id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        </td>
-
-                    </tr>
-        </div>
+                    <td><a href="/delete/{{$dish->id}}"><i class="fa fa-trash col-md-offset-3" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
     @endforeach
 
     </table>

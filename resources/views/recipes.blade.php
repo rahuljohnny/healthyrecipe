@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title','shirts')
+@section('title','recipes')
 @section('content')
     <!-- products listing -->
     <!-- Latest SHirts -->
@@ -35,7 +35,7 @@
             <div class="item-wrapper">
                 <div class="img-wrapper">
                     <a href="butt" class="button expanded add-to-cart">
-                        Add to Cart
+                        Add to favourits
                     </a>
                     <a href="#">
                         <img src="https://i.ytimg.com/vi/ilUDVRL2w3Y/maxresdefault.jpg" alt="image"/>
@@ -59,7 +59,7 @@
             <div class="item-wrapper">
                 <div class="img-wrapper">
                     <a href="butt" class="button expanded add-to-cart">
-                        Add to Cart
+                        Add to favourits
                     </a>
                     <a href="#">
                         <img src="https://i.ytimg.com/vi/ilUDVRL2w3Y/maxresdefault.jpg" alt="image"/>
@@ -82,7 +82,7 @@
             <div class="item-wrapper">
                 <div class="img-wrapper">
                     <a href="butt" class="button expanded add-to-cart">
-                        Add to Cart
+                        Add to favourits
                     </a>
                     <a href="#">
                         <img src="https://i.ytimg.com/vi/ilUDVRL2w3Y/maxresdefault.jpg" alt="image"/>

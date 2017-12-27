@@ -17,6 +17,8 @@ class CreateFavrecipesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('recipeLabel');
+            $table->string('uniqueUrl');
+            $table->string('imageUrl');
 
             $table->timestamps();
         });

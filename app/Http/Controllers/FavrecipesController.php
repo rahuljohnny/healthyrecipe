@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Favrecipes;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FavrecipesController extends Controller
@@ -19,50 +20,39 @@ class FavrecipesController extends Controller
         $this->middleware('auth')->except(['profile']);
     }
 
-    public function addtofav($name)
+    public function addtofav(Request $request)
     {
-        $nameTempTwo = $name;
-        for ($i = 0; $i < strlen($name); $i++) {
+        //return $request['url'];
 
-            if($name[$i]=='_')
-                $name[$i] = ' ';
+        $newFav = new Favrecipes;
+        $newFav->user_id = auth()->id();
+        $newFav->recipeLabel = $request['name'];
+        $url = $newFav->uniqueUrl = $request['url'];
+        $newFav->imageUrl = $request['imageUrlToFav'];
+        $newFav->created_at = Carbon::now();
 
-            //echo "The number is: "+$name[$i]+"<br>";
-        }
-
-
+        //If its already added
         $alreadyAdded = Favrecipes::where([
             ['user_id', '=', auth()->id()],
-            ['recipeLabel', '=', $name]
+            ['uniqueUrl', '=', $url]
         ])->get();
 
 
 
 
         if (!$alreadyAdded->count()) {
+            $newFav->save();
+            return "1";
 
-            //TODO ############################################################
-
-
-
-            $favRecipes = new Favrecipes;
-
-            $favRecipes->recipeLabel = $name;
-            $favRecipes->user_id = auth()->id();
-
-
-
-
-            $favRecipes->save();
-
-            return redirect()->back()->with(['message' => "Added to favourites!!"]);
+            //return with(['message' => "Added to favourites!!"]);
         }
         else{
-            return redirect()->back()->with(['error' => "It's already added to favourites!!"]);
+            return "0";
+            //return response()->json(['message','Previously added!!!'],200);
+
+            //return redirect()->back()->with(['error' => "It's already added to favourites!!"]);
+            //return with(['error' => "It's already added to favourites!!"]);
         }
-
-
-
     }
 
     /*
@@ -86,17 +76,11 @@ class FavrecipesController extends Controller
     public function create()
     {
         return view('user.ajaira');
-            }
+    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**
@@ -146,14 +130,12 @@ class FavrecipesController extends Controller
 
         if($dishToDelete->user_id == Auth::id()){
 
-
-
-            if($dishToDelete->delete()){
-                return redirect()->to('user\profile')->with(['message' => "Unliked dish!!"]);
+           if($dishToDelete->delete()){
+                return redirect()->to('userprofile')->with(['message' => "Unliked dish!!"]);
             }
             return back()->withInput()->with('Error','Dish could not be Unliked!!');
         }
-        return redirect()->to('user\profile')->with(['error' => "You don't have this permission!"]);
+        return redirect()->to('userprofile')->with(['error' => "You don't have this permission!"]);
 
         }
 }

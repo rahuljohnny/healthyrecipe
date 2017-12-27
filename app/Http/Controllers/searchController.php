@@ -22,6 +22,8 @@ class searchController extends Controller
     public function recipe($name){ //$recipeName
 
         $nameTemp = $name;
+
+        /*
         for ($i = 0; $i < strlen($name); $i++) {
 
             if($name[$i]=='_')
@@ -29,8 +31,7 @@ class searchController extends Controller
 
            //echo "The number is: "+$name[$i]+"<br>";
         }
-
-
+        */
         //dd($name);
         return view('recipe',compact(['name','nameTemp']));
     }
