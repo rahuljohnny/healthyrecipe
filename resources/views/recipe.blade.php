@@ -26,58 +26,79 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     </head>
 
-<body>
+    <body>
 
-<div class="col-md-6 col-lg-6 col-sm-12  col-md-offset-3 col-lg-offset-3">
-    <div class="dialogmsg alert-success" title="Saved"></div>
-    <div class="dialogerr alert-danger" title="Saved Previously"></div>
-</div>
-
-
-
-<div class="col-md-12 col-lg-12 col-sm-12" id="searchForm" >
-    @include('partials.errors')
-    <div class="form-group">
-        <input type="hidden" id="token" value="{{csrf_token()}}">
-        <input type="text" class="hidden" placeholder="search" id="searchBar">
-        <input type="text" class="hidden"  id="nameNew" value="{{$name}}">
+    <div class="col-md-6 col-lg-6 col-sm-12  col-md-offset-3 col-lg-offset-3">
+        <div class="dialogmsg alert-success" id="saved" title="Saved"></div>
+        <div class="dialogerr alert-danger" id="presSaved" title="Saved Previously"></div>
     </div>
 
-</div>
-
-
-<div class="col-md-8 col-lg-8 col-sm-8  col-md-offset-2 col-lg-offset-2">
-
-    <div class="resultContainer" onclick="show($url)"></div><hr>
-
-    <div class="row col-md-offset-2 col-md-10">
-        <h2 class="Ingredients"></h2>
-
-        <div class="col-md-8">
-            <div class="ingredientLines"></div>
-        </div>
-
-        <div class="col-md-4 pull-right">
-            <form class="form-group" id="postForm3" method="post">
-                <button type="button" class="addIcon" id="addToFavButton" ></button>
-            </form>
-
-
+    <div class="col-md-12 col-lg-12 col-sm-12" id="searchForm">
+        @include('partials.errors')
+        <div class="form-group">
+            <input type="hidden" id="token" value="{{csrf_token()}}">
+            <input type="text" class="hidden" placeholder="search" id="searchBar">
+            <input type="text" class="hidden"  id="nameNew" value="{{$name}}">
         </div>
 
     </div>
-</div>
+
+
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 col-md-offset-3 col-lg-offset-3">
+
+        <div class="resultContainer"></div>
+        {{--##############################################################################################################--}}
+
+        <div class="list-group col-md-12" xmlns="http://www.w3.org/1999/html">
+            <a href="recipe/' + urlForEachTemp + '" class="list-group-item active" id="oneA">
+
+            </a>
+
+            <br>
+
+
+            <div class="col-md-12">
+
+                <div class="col-md-6" id="infos"></div>
+
+                <div class="col-md-6">
+                    <div class="img-wrapper" id="wrapedImage"></div>
+                </div>
+
+            </div>
+        </div>
+
+        {{--##############################################################################################################--}}
+        <h3 class="Ingredients text-info col-md-offset-1"></h3>
+
+        <div class="row">
+
+            <div class="col-md-6 col-md-offset-1">
+                <div class="ingredientLines"></div>
+            </div><br><br>
+
+            <div class="col-md-4">
+                <form class="form-group" id="postForm3" method="post">
+                    <button type="button" class="addIcon" id="addToFavButton"></button>
+                </form>
+            </div>
+
+        </div>
+    </div>
 
 
 
 
 
-<script src="{{asset('dist/js/vendor/jquery.js')}}"></script> {{--It prevents page from getting refreshed--}}
+    <script src="{{asset('dist/js/vendor/jquery.js')}}"></script> {{--It prevents page from getting refreshed--}}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 <script>
+
+
+    var checkIfSearchResulsExist;
 
     var urlN = '{{route('addtofav')}}';
 
@@ -122,30 +143,28 @@
                 var urlForEach = recipe.label;
                 var urlForEachTemp;
                 reciName = recipe.uri;
-
                 var indexOfUnderscore = reciName.indexOf("_");
-
                 var urlForEachTemp = reciName.substring(indexOfUnderscore + 1, reciName.length);
-
-
                 if (urlForEachTemp.valueOf() == searchKey.valueOf()) {
 
+                    checkIfSearchResulsExist = 1;
+
                     count = 1;
-                    $('.resultContainer').append(
-                        '<div class="list-group col-md-8 col-md-offset-2" xmlns="http://www.w3.org/1999/html">' +
+
+                    $('#oneA').append(
                         '<a href="recipe/' + urlForEachTemp + '" class="list-group-item active">' +
                         '<div class="itemBar">' +
-                        '<h3>' + recipe.label + '</h3>' +
+                        '<h3 class="text-center">' + recipe.label + '</h3>' +
                         '</div>' +
-                        '</a>' + '<br>' +
+                        '</a>'
+                    );
 
-
-                        '<div class="row col-md-12">' +
-
-                        '<div class="col-md-7">'
+                    $('#infos').append(
+                        '<div class="col-md-9">'
                         + '<ul><h3 class="text-success">Health Label: ' +
                         recipe.healthLabels[0]
                         + '</ul></h3>'
+
                         + '<ul><strong>' + recipe.totalNutrients.CA.label + ':  ' +
                         recipe.totalNutrients.CA.quantity + ' ' + recipe.totalNutrients.CA.unit
                         + '</ul></strong>' +
@@ -153,16 +172,14 @@
                         '<ul class="text-danger"><strong> Calories: ' +
                         recipe.calories
                         + '</strong></ul>' +
-                        '</div>' +
+                        '</div>'
+                    );
 
-                        '<div class="col-md-offset-2 col-md-3">' +
+                    $('#wrapedImage').append(
                         '<div class="img-wrapper">' +
                         '<img src="' + recipe.image + '" alt="Dish">'
                         + '</div>'
-                        + '</div>' +
-                        '</div>' +
-                        '</div>'
-                    );
+                    )
 
 
                     $('.Ingredients').append(
@@ -170,7 +187,7 @@
 
                     $('.addIcon').append('' +
                         '<div class="faPlus">'+
-                        '<i class="fa fa-plus-square fa-5x col-md-offset-2 " aria-hidden="true" style="color: #2b542c">' + '</i>' +
+                        '<i class="fa fa-plus-square fa-5x col-md-offset-2 " aria-hidden="true" style="color: #54163e">' + '</i>' +
                         '<h4 class="text-success">' + 'Add to Favourites' + '</h4>'
                         +'</div>'
                     );
@@ -181,13 +198,15 @@
                             '<h4 class="text-success">' + (i + 1) + '. ' + recipe.ingredientLines[i] + '</h4>'
                         );
                     }
-                        nameToFav = recipeNew;
-                        urlToFav = searchKey;
-                        imageUrlToFav = recipe.image;
+                    nameToFav = recipeNew;
+                    urlToFav = searchKey;
+                    imageUrlToFav = recipe.image;
                 }
             });
 
         }
+
+
 
 
         $("#addToFavButton").on('click',function () {
@@ -197,7 +216,8 @@
         function addToFav(){
             $('.dialogmsg').html('');
             $('.dialogerr').html('');
-            $('.addIcon').hide();
+
+
 
 
             $.ajax({
@@ -211,19 +231,33 @@
                     {
                         $('.dialogerr').append(
                             '<strong><h3>'+'This item is already added!!'+'</h3></strong>'
+                        ).fadeOut(3000);
+
+                        $('.addIcon').html(
+                            '<b>'+'Added Already'+'</b>'
                         );
+                        //$('.dialogerr').fadeOut(3000);
+
                     }
                     else if(data == '1'){
                         $('.dialogmsg').append(
                             '<strong><h3>'+'Added to favourits!!'+'</h3></strong>'
+                        ).fadeOut(3000);
+
+                        $('.addIcon').html(
+                            '<b>'+'Added Successfully'+'</b>'
                         );
                     }
                 }
             });
         }
-</script>
+</script><hr>
+
+    @include('layout.footer')
+
 
 </body>
+
 </html>
 
 

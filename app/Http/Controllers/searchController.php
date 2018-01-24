@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Favrecipes;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class searchController extends Controller
@@ -15,7 +17,10 @@ class searchController extends Controller
     }
 
     public function recipes(){
-        return view('recipes');
+        $recipes = Favrecipes::all();
+        $dt     = Carbon::now();
+
+        return view('recipes',compact(['recipes','dt']));
     }
 
 
@@ -23,16 +28,6 @@ class searchController extends Controller
 
         $nameTemp = $name;
 
-        /*
-        for ($i = 0; $i < strlen($name); $i++) {
-
-            if($name[$i]=='_')
-                $name[$i] = ' ';
-
-           //echo "The number is: "+$name[$i]+"<br>";
-        }
-        */
-        //dd($name);
         return view('recipe',compact(['name','nameTemp']));
     }
 

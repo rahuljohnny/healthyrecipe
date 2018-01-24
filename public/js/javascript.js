@@ -109,6 +109,10 @@ $('#searchForm').submit(function (e) { //TODO: To prevent a "form submission ref
 
 })
 
+$('#message').fadeIn(3000);
+
+//$("#div3").fadeIn(3000);
+
 
 
 

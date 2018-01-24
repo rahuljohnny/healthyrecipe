@@ -3,31 +3,24 @@
 @section('content')
 
 
-<div class="col-md-offset-2 col-md-8">
+    <div class="col-md-offset-2 col-md-8">
+        @include('partials.errors')
 
-    @include('partials.errors')
+        <table class="table col-md-12">
+            <h3 class="text-success">{{$userName}}'s Profile:</h3><br>
+            <tr>
+                <th class="col-md-3">ID</th>
+                <th class="col-md-3">
+                    Item Name
+                </th>
+                <th class="col-md-2">Added at</th>
+                <th class=" col-md-1">Image</th>
+                <th class="col-md-1 col-md-offset-3">Action</th>
+            </tr>
 
-
-    <table class="table col-md-12">
-        <h3 class="text-success">{{$userName}}'s Profile:</h3><br>
-
-
-        <tr>
-            <th class="col-md-3">ID</th>
-            <th class="col-md-3">
-                Item Name
-            </th>
-            <th class="col-md-2">Added at</th>
-
-            <th class=" col-md-1">Image</th>
-            <th class="col-md-1 col-md-offset-3">Action</th>
-        </tr>
-
-        @foreach($favDishes as $dish)
-
+            @foreach($favDishes as $dish)
                 <tr class="panel panel-default">
                     <td>{{$dish->uniqueUrl}}</td>
-
                     <td>
                         <a href="/recipe/{{$dish->uniqueUrl}}">
                             {{$dish->recipeLabel}}
@@ -42,12 +35,10 @@
                     <td><a href="/delete/{{$dish->id}}"><i class="fa fa-trash col-md-offset-3" aria-hidden="true"></i></a>
                     </td>
                 </tr>
-    @endforeach
+            @endforeach
+        </table>
 
-    </table>
-
-
-</div>
-
+    </div>
+    <div class="clearfix"></div>
 
 @endsection

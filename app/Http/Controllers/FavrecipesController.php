@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Favrecipes;
+use App\User;
 use Carbon\Carbon;
 use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -112,9 +113,10 @@ class FavrecipesController extends Controller
      * @param  \App\Favrecipes  $favrecipes
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Favrecipes $favrecipes)
+    public function search($searchKey)
     {
-        //
+        $userName = User::search($searchKey)->get();
+        return view('search.userSearch',compact('userName'));
     }
 
     /**

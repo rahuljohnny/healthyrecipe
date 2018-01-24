@@ -1,13 +1,11 @@
 
-
-
 <div  class="top-bar">
     <div style="color:whitesmoke" class="top-bar-left">
         <h4 class="brand-title">
             <a href="/"> <!-- /home it was -->
                 <i class="fa fa-home fa-lg" aria-hidden="true">
                 </i>
-                Kekapu's Kitchen(KK)
+                HederTwo of KK
             </a>
         </h4>
     </div>
@@ -58,3 +56,6 @@
     </div>
 </div>
 <br><br>
+
+@yield('content')
+

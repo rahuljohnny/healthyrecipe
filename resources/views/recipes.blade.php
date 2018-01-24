@@ -1,113 +1,74 @@
 @extends('layout.main')
 @section('title','recipes')
 @section('content')
-    <!-- products listing -->
-    <!-- Latest SHirts -->
 
-    <div class="row" >
-        {{--@forelse($shirts as $shirt) --}}
+    <div class="container-fluid" id="homePage">
+        <div class="row text-center">
 
-        <div class="small-3 medium-3 large-3 columns">
-            <div class="item-wrapper">
-                <div class="img-wrapper">
-                    <a href="butt" class="button expanded add-to-cart">
-                        Add to Cart
-                    </a>
-                    <a href="#">
-                        <img src="https://i.ytimg.com/vi/ilUDVRL2w3Y/maxresdefault.jpg" alt="image"/>
-                    </a>
-                </div>
-                <a href="shirts/3">
-                    <h3>
-                        Alu paratha
-                    </h3>
-                </a>
-                <h5>
-                    121
-                </h5>
-                <p>
-                    ghdfg fcnbfg bf
-                </p>
+            <div class="well well-lg" id="btnTitle" style="background: #0c4d78">
+                <h3 style="color: whitesmoke">Trendz goin on worldwide</h3>
             </div>
-        </div>
 
-        <div class="small-3 medium-3 large-3 columns">
-            <div class="item-wrapper">
-                <div class="img-wrapper">
-                    <a href="butt" class="button expanded add-to-cart">
-                        Add to favourits
-                    </a>
-                    <a href="#">
-                        <img src="https://i.ytimg.com/vi/ilUDVRL2w3Y/maxresdefault.jpg" alt="image"/>
-                    </a>
-                </div>
-                <a href="shirts/3">
-                    <h3>
-                        Alu paratha
-                    </h3>
+        </div>
+        <br>
+        <div class="row" id="rowToChange">
+
+            @foreach($recipes as $dish)
+
+                <a href="/recipe/{{$dish->uniqueUrl}}">
+
+                    <div class="image-block col-sm-4"
+                         style="background: url({{$dish->imageUrl}})no-repeat center top;background-size:cover;">
+
+                        <p href="/recipe/{{$dish->uniqueUrl}}" style="background-size: cover">
+                            {{$dish->recipeLabel}}
+                        </p>
+                    </div>
+
                 </a>
-                <h5>
-                    121
-                </h5>
-                <p>
-                    ghdfg fcnbfg bf
-                </p>
-            </div>
+            @endforeach
+
+
         </div>
-
-        <div class="small-3 medium-3 large-3 columns">
-            <div class="item-wrapper">
-                <div class="img-wrapper">
-                    <a href="butt" class="button expanded add-to-cart">
-                        Add to favourits
-                    </a>
-                    <a href="#">
-                        <img src="https://i.ytimg.com/vi/ilUDVRL2w3Y/maxresdefault.jpg" alt="image"/>
-                    </a>
-                </div>
-                <a href="shirts/3">
-                    <h3>
-                        Alu paratha
-                    </h3>
-                </a>
-                <h5>
-                    121
-                </h5>
-                <p>
-                    ghdfg fcnbfg bf
-                </p>
-            </div>
-        </div>
-        <div class="small-3 medium-3 large-3 columns">
-            <div class="item-wrapper">
-                <div class="img-wrapper">
-                    <a href="butt" class="button expanded add-to-cart">
-                        Add to favourits
-                    </a>
-                    <a href="#">
-                        <img src="https://i.ytimg.com/vi/ilUDVRL2w3Y/maxresdefault.jpg" alt="image"/>
-                    </a>
-                </div>
-                <a href="shirts/3">
-                    <h3>
-                        Alu paratha
-                    </h3>
-                </a>
-                <h5>
-                    Calorie: 121
-                </h5>
-
-                <h3>
-                    Ingredients:
-                </h3>
-            </div>
-        </div>
-
-
-
-
-        {{--@endforelse --}}
 
     </div>
+
+    <style>
+        .headermessage {
+            margin: 19px;
+            color: black;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .image-block {
+            border: 3px solid white ;
+            background-color: black;
+            padding: 0px;
+            margin: 0px;
+            height:200px;
+            text-align: center;
+            vertical-align: bottom;
+        }
+        .image-block > p {
+            width: 100%;
+            height: 100%;
+            font-weight: normal;
+            font-size: 19px;
+            padding-top: 150px;
+            background-color: rgba(3,3,3,0.0);
+            color: rgba(6,6,6,0.0);
+        }
+        .image-block:hover > p {
+            background-color: rgba(3,3,3,0.5);
+            color: white;
+        }
+    </style>
+    <br>
+
+
+
+
+
 
 @endsection
